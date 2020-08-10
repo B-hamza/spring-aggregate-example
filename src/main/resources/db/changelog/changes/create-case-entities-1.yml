@@ -1,0 +1,144 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-case-table
+      author: Hamza
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            tableExists:
+              tableName: case_aggregate
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: case_pkey
+                  name: case_id
+                  type: VARCHAR(250)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: company_name
+                  type: VARCHAR(250)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: due_date
+                  type: DATE
+              - column:
+                  constraints:
+                    nullable: false
+                  name: case_state
+                  type: VARCHAR(250)
+            tableName: case_aggregate
+
+  - changeSet:
+      id: create-document-table
+      author: Hamza
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            tableExists:
+              tableName: document
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: document_pkey
+                  name: document_id
+                  type: VARCHAR(250)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: document_name
+                  type: VARCHAR(250)
+              - column:
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_document_case
+                    references: case_aggregate(case_id)
+                  name: case_id
+                  type: VARCHAR(250)
+            tableName: document
+
+  - changeSet:
+      id: create-signer-table
+      author: Hamza
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            tableExists:
+              tableName: signer
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: signer_pkey
+                  name: signer_id
+                  type: VARCHAR(250)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: signer_name
+                  type: VARCHAR(250)
+              - column:
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_signer_case
+                    references: case_aggregate(case_id)
+                  name: case_id
+                  type: VARCHAR(250)
+            tableName: signer
+
+  - changeSet:
+      id: create-case-process-table
+      author: Hamza
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            tableExists:
+              tableName: case_process
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: process_pkey
+                  name: process_id
+                  type: VARCHAR(250)
+              - column:
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_signer_process
+                    references: signer(signer_id)
+                  name: signer_id
+                  type: VARCHAR(250)
+              - column:
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_case_process
+                    references: case_aggregate(case_id)
+                  name: case_id
+                  type: VARCHAR(250)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: date
+                  type: DATE
+              - column:
+                  constraints:
+                    nullable: false
+                  name: signer_state
+                  type: VARCHAR(250)
+            tableName: case_process
+
