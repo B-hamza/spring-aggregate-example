@@ -11,6 +11,6 @@ import lombok.Value;
 @AllArgsConstructor
 @Table("signer")
 public class Signer {
-  @Column("signer_id") @Id String userId;
-  @Column("signer_name") String userName;
+  @Column("signer_id") @Id String signerId;
+  @Column("signer_name") String signerName;
 }

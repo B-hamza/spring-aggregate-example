@@ -23,9 +23,9 @@ import lombok.Value;
 public class CaseAggregate {
   @Column("case_id") @Id UUID caseId;
   @Column("company_name") String companyName;
-  @MappedCollection(idColumn = "document_id") Set<Document> documents;
-  @MappedCollection(idColumn = "signer_id") Set<Signer> signers;
+  @MappedCollection(idColumn = "case_id") Set<Document> documents;
+  @MappedCollection(idColumn = "case_id") Set<Signer> signers;
   @Column("due_date") LocalDateTime dueDate;
   @Column("case_state") CaseState state;
-  @MappedCollection(idColumn = "process_id") Set<CaseProcess> caseProcesses;
+  @MappedCollection(idColumn = "case_id") Set<CaseProcess> caseProcesses;
 }
