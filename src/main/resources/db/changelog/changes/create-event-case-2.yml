@@ -1,0 +1,51 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-event-case
+      author: Hamza
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            tableExists:
+              tableName: events
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: event_pkey
+                  autoIncrement: true
+                  name: sequential_id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: event_id
+                  type: VARCHAR(250)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: state_id
+                  type: VARCHAR(250)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: date
+                  type: TIMESTAMP
+              - column:
+                  constraints:
+                    nullable: false
+                  name: state
+                  type: BLOB
+              - column:
+                  constraints: 
+                    nullable: false
+                  name: command
+                  type: BLOB
+              - column:
+                  constraints:
+                    nullable: false
+                  name: context
+                  type: BLOB
+            tableName: events

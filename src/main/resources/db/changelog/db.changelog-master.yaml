@@ -1,3 +1,5 @@
 databaseChangeLog:
   - include:
       file: db/changelog/changes/create-case-entities-1.yml
+  - include:
+      file: db/changelog/changes/create-event-case-2.yml
